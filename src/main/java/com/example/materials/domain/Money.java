@@ -10,7 +10,7 @@ import javax.persistence.Table;
  * 金额
  */
 @Data
-@Table(name = "project")
+@Table(name = "Money")
 public class Money {
   @Id
   @KeySql(useGeneratedKeys = true)
@@ -20,7 +20,7 @@ public class Money {
   private String contractprice;
   private String settleprice;
   private String paymentprice;
-  private Integer paymentdatil;  
+  private Integer paymentdatil;
   private Integer project;
 
 }
