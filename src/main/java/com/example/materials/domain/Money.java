@@ -15,12 +15,12 @@ public class Money {
   @Id
   @KeySql(useGeneratedKeys = true)
   private Integer id;
-  private String factoryname; //工厂名称
-  private String cargoname; //货物名称
-  private String contractprice; //合约价格
-  private String settleprice;  //单一价格
-  private String paymentprice;  //支付金额
-  private Integer paymentdatil;  //付款
+  private String factoryname;
+  private String cargoname;
+  private String contractprice;
+  private String settleprice;
+  private String paymentprice;
+  private Integer paymentdatil;  
   private Integer project;
 
 }
