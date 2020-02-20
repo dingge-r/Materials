@@ -10,11 +10,11 @@ public class Project {
     @Id
     @KeySql(useGeneratedKeys = true)
     private Integer id;
-    private String blocname;
-    private String companyname;
-    private String projectbranchname;
-    private String projectname;
-    private String code;
-    private String retendernum;
-    private String year;
+    private String blocname;         //集团名称
+    private String companyname;       //企业名称
+    private String projectbranchname; //项目部名称
+    private String projectname;     //项目名称
+    private String code;        //唯一主代码（10位，组织机构代码+报表类型码）
+    private String retendernum;   //招标编号
+    private String year;     //年度
 }
