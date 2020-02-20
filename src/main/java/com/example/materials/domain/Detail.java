@@ -8,17 +8,19 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- * 用户
+ * 支付详情
  */
 @Data
-@Table(name = "user")
-public class User {
-
+@Table(name = "detail")
+public class Detail {
   @Id
   @KeySql(useGeneratedKeys = true)
   private Integer id;
-  private String username;
-  private String password;
+  private String settleprice;
+  private String notaxsettle;
+  private String paymentprice;
+  private Integer time;
+  private Integer money;
+
 
 }
-
