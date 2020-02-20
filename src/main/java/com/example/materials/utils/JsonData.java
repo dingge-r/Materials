@@ -8,9 +8,9 @@ import java.io.Serializable;
 public class JsonData implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    private Integer code;
-    private Object data;
-    private String msg;
+    private Integer code; //状态码 -1 失败  0成功
+    private Object data;  // 返回的数据
+    private String msg;   //返回的信息提示
 
     public JsonData() {
     }
