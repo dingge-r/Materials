@@ -16,11 +16,11 @@ public class Detail {
   @Id
   @KeySql(useGeneratedKeys = true)
   private Integer id;
-  private String settleprice;
-  private String notaxsettle;
-  private String paymentprice;
-  private Integer time;
-  private Integer money;
+  private String settleprice;    //结算金额
+  private String notaxsettle;  //不含税结算
+  private String paymentprice; //付款金额
+  private Integer time;    //第几次
+  private Integer money;     //所属金额
 
 
 }

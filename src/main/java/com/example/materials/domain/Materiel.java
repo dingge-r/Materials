@@ -16,13 +16,13 @@ public class Materiel {
   @Id
   @KeySql(useGeneratedKeys = true)
   private Integer id;
-  private String mname;
-  private String type;
-  private String unit;
-  private Integer number;
-  private String price;
-  private String sumprice;
-  private String remark;
-  private Integer mproject;
+  private String mname;  //物资名称
+  private String type; //规格型号
+  private String unit; //单位
+  private Integer number; //数量
+  private String price;  //单价
+  private String sumprice;    //总价
+  private String remark;   //备注
+  private Integer mproject;  //所属项目
 
 }
