@@ -15,10 +15,11 @@ public class ContractController {
     private ContractService contractService;
 
     //查看所有
-    @GetMapping("findAll")
-    public  ResponseEntity  findAll(){
-        return ResponseEntity.status(HttpStatus.CREATED).body(contractService.findAll());
-    }
+//    @GetMapping("findByPage")
+//    public ResponseEntity findByPage(@RequestParam(name = "page", defaultValue = "1") Integer page,
+//                                     @RequestParam(name = "rows", defaultValue = "10") Integer rows){
+//        return ResponseEntity.ok(contractService.findByPage(page, rows));
+//    }
 
     //通过id查看
     @GetMapping("findById")
@@ -32,11 +33,6 @@ public class ContractController {
         return ResponseEntity.status(HttpStatus.CREATED).body(contractService.update(contract));
     }
 
-    //删除
-    @DeleteMapping("delete")
-    public ResponseEntity delete(@RequestParam(name = "id") Integer id) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(contractService.delete(id));
-    }
 
     //保存
     @PostMapping("save")
