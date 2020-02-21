@@ -35,10 +35,10 @@ public class MaterielController {
         return ResponseEntity.status(HttpStatus.CREATED).body(materielService.update(materiel));
     }
 
-    //更新状态
+    /*//更新状态
     @GetMapping("updateStatus")
     public ResponseEntity updateStatus(@RequestParam(name = "id") Integer id,
                                        @RequestParam(name = "status") Integer status){
         return ResponseEntity.ok(materielService.updateStatus(id, status));
-    }
+    }*/
 }

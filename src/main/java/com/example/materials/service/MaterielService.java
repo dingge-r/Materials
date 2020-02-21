@@ -48,11 +48,11 @@ public class MaterielService {
     }
 
     public JsonData update(Materiel materiel) {
-        Materiel materiel1 = findById(materiel.getId());
+        /*Materiel materiel1 = findById(materiel.getId());
         if (materiel1.getStatus() == 1){
             return JsonData.buildError("已完成项目，不允许再次修改");
-        }
-        materiel.setStatus(null);
+        }*/
+        materiel.setDate(DateUtils.dateByString());
         int i = materielMapper.updateByPrimaryKeySelective(materiel);
         if (i != 1){
             return JsonData.buildError("更新失败");
@@ -60,8 +60,16 @@ public class MaterielService {
         return JsonData.buildSuccess("更新成功");
     }
 
-    public JsonData updateStatus(Integer id, Integer status) {
-        materielMapper.updateStatus(id, status , DateUtils.dateByString());
-        return JsonData.buildSuccess("成功");
-    }
+    /*public JsonData updateStatus(Integer id, Integer status) {
+        if (status == 0 || status == 1){
+            materielMapper.updateStatus(id, status , DateUtils.dateByString());
+            if (status == 0){
+                //更新为未完成以后，改变project的status
+                Materiel materiel = materielMapper.selectByPrimaryKey(id);
+                materielMapper.updateProjectStatus(materiel.getMproject());
+            }
+            return JsonData.buildSuccess("成功");
+        }
+        return JsonData.buildError("数据有问题");
+    }*/
 }
