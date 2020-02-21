@@ -5,6 +5,9 @@ import tk.mybatis.mapper.annotation.KeySql;
 
 import javax.persistence.Id;
 
+/**
+ * 项目
+ */
 @Data
 public class Project {
     @Id
