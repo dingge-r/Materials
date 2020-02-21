@@ -32,4 +32,10 @@ public class UserController {
         return ResponseEntity.ok(userService.delete(id));
     }
 
+    @GetMapping("findByPage")
+    public ResponseEntity findByPage(@RequestParam(name = "page", defaultValue = "1") Integer page,
+                                     @RequestParam(name = "rows", defaultValue = "10") Integer rows){
+        return ResponseEntity.ok(userService.findByPage(page, rows));
+    }
+
 }

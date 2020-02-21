@@ -3,6 +3,9 @@ package com.example.materials.service;
 import com.example.materials.domain.User;
 import com.example.materials.mapper.UserMapper;
 import com.example.materials.utils.JsonData;
+import com.example.materials.utils.PageResult;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
@@ -72,5 +75,11 @@ public class UserService {
     public JsonData delete(Integer id) {
         userMapper.deleteByPrimaryKey(id);
         return JsonData.buildSuccess("删除用户成功");
+    }
+
+    public PageResult<User> findByPage(Integer page, Integer rows) {
+        PageHelper.startPage(page, rows);
+        Page<User> userPage = (Page<User>) userMapper.selectAll();
+        return new PageResult<>(userPage.getTotal(), userPage.getPages(), userPage.getResult());
     }
 }

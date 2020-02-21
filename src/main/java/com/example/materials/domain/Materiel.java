@@ -6,6 +6,7 @@ import tk.mybatis.mapper.annotation.KeySql;
 
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 /**
  * 物料
@@ -20,11 +21,15 @@ public class Materiel {
   private String type; //规格型号
   private String unit; //单位
   private Integer number; //数量
-  private String price;  //单价
-  private String sumprice;    //总价
+  private double price;  //单价
+  private double sumprice;    //总价
   private String remark;   //备注
   private Integer mproject;  //所属项目
+  private String date;
   private Integer status;     //当前项目状态 0未完成，1已完成
+
+  @Transient
+  private String projectName;  //项目名
 
 
 }
