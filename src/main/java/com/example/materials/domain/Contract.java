@@ -38,5 +38,6 @@ public class Contract {
   private String ifequal;          //合同签订单价是否与采购结果单价一致
   private String remark;       //备注
   private Integer cproject;    //所属项目
+  private Integer cstatus;     //当前项目状态 0未完成，1已完成
 
 }

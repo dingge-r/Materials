@@ -17,4 +17,6 @@ public class Project {
     private String code;        //唯一主代码（10位，组织机构代码+报表类型码）
     private String retendernum;   //招标编号
     private String year;     //年度
+    private Integer status;     //当前项目状态 0未完成，1已完成
+
 }

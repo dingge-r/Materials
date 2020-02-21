@@ -21,5 +21,7 @@ public class Money {
   private String settleprice;       //结算金额
   private String paymentprice;    //付款金额
    private Integer project;     //所属项目
+  private Integer status;     //当前项目状态 0未完成，1已完成
+
 
 }

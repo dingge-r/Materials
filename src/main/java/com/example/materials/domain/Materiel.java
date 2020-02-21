@@ -24,5 +24,7 @@ public class Materiel {
   private String sumprice;    //总价
   private String remark;   //备注
   private Integer mproject;  //所属项目
+  private Integer status;     //当前项目状态 0未完成，1已完成
+
 
 }
