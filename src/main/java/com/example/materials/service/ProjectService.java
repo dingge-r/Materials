@@ -22,9 +22,6 @@ public class ProjectService {
     private ProjectMapper projectMapper;
 
     public JsonData save(Project project) {
-        if (!checkProjectname(project.getProjectname())) {
-            return JsonData.buildError("该项目名已存在，添加失败");
-        }
         project.setCreateTime(DateUtils.dateByString());
         int i = projectMapper.insertSelective(project);
         if (i != 1) {
@@ -38,9 +35,6 @@ public class ProjectService {
     }
 
     public JsonData update(Project project) {
-        if (!checkProjectname(project.getProjectname())) {
-            return JsonData.buildError("该项目名已存在，添加失败");
-        }
         project.setStatus(null);
         project.setCreateTime(DateUtils.dateByString());
         int i = projectMapper.updateByPrimaryKeySelective(project);
@@ -87,16 +81,7 @@ public class ProjectService {
         Page<Project> projectPage1 = (Page<Project>) projectMapper.selectByExample(example);
         return new PageResult<>(projectPage1.getTotal(), projectPage1.getPages(), projectPage1.getResult());
     }
-
-    //校验用户名是否存在
-    public boolean checkProjectname(String projectname) {
-        Example example = new Example(Project.class);
-        Example.Criteria criteria = example.createCriteria();
-        criteria.andEqualTo("projectname", projectname);
-        Project project = projectMapper.selectOneByExample(example);
-        return project == null;
-    }
-
+    
     //所有未完成项目
     public JsonData findUndone() {
         Example example = new Example(Project.class);
