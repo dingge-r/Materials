@@ -12,7 +12,7 @@ import java.util.List;
  * 金额
  */
 @Data
-@Table(name = "Money")
+@Table(name = "money")
 public class Money {
   @Id
   @KeySql(useGeneratedKeys = true)

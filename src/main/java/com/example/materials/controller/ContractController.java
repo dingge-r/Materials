@@ -33,7 +33,6 @@ public class ContractController {
         return ResponseEntity.status(HttpStatus.CREATED).body(contractService.update(contract));
     }
 
-
     //保存
     @PostMapping("save")
     public ResponseEntity save(@RequestBody Contract contract) {
