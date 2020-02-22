@@ -21,11 +21,6 @@ public class ProjectService {
     @Autowired
     private ProjectMapper projectMapper;
 
-    //根据项目名称查id
-    public Integer findIdByName(String name) {
-        return projectMapper.findIdByName(name);
-    }
-
     public JsonData save(Project project) {
         if (!checkProjectname(project.getProjectname())) {
             return JsonData.buildError("该项目名已存在，添加失败");

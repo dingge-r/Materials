@@ -22,11 +22,11 @@ public class MaterielController {
     //多条件查询
     @GetMapping("findByLike")
     public ResponseEntity findByLike(@RequestParam(name = "name", required = false) String name, //物料名称
-                                     @RequestParam(name = "projectName", required = false) String projectName, //项目名
+                                     @RequestParam(name = "type", required = false) String type, //项目名
                                      @RequestParam(name = "remark", required = false) String remark, //备注
                                      @RequestParam(name = "page", defaultValue = "1") Integer page,
                                      @RequestParam(name = "rows", defaultValue = "10") Integer rows){
-        return ResponseEntity.ok(materielService.findByLike(name, projectName, remark, page, rows));
+        return ResponseEntity.ok(materielService.findByLike(name, type, remark, page, rows));
     }
 
     @GetMapping("findById")

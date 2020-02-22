@@ -22,9 +22,6 @@ public class MaterielService {
     @Autowired
     private MaterielMapper materielMapper;
 
-    @Autowired
-    private ProjectService projectService;
-
     public JsonData save(Materiel materiel) {
         double sumprice = materiel.getPrice() * materiel.getNumber();//计算总价
         if (sumprice != materiel.getSumprice()){
@@ -43,18 +40,14 @@ public class MaterielService {
     }
 
     //多条件搜索
-    public PageResult<Materiel> findByLike(String name,String projectName,String remark, Integer page, Integer rows) {
+    public PageResult<Materiel> findByLike(String name,String type,String remark, Integer page, Integer rows) {
         Example example = new Example(Materiel.class);
         Example.Criteria criteria = example.createCriteria();
         if (name != null){
             criteria.andLike("mname", "%" + name + "%");
         }
-        if (projectName != null) {
-            Object projectId = projectService.findIdByName(projectName);
-            if (projectId == null){
-                return new PageResult<>();
-            }
-            criteria.andEqualTo("mproject", projectId);
+        if (type != null) {
+            criteria.andLike("type", "%" + type + "%");
         }
         if (remark != null){
             criteria.andLike("remark", "%" + remark + "%");
