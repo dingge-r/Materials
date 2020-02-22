@@ -19,10 +19,14 @@ public class MaterielController {
         return ResponseEntity.status(HttpStatus.CREATED).body(materielService.save(materiel));
     }
 
-    @GetMapping("findByPage")
-    public ResponseEntity findByPage(@RequestParam(name = "page", defaultValue = "1") Integer page,
+    //多条件查询
+    @GetMapping("findByLike")
+    public ResponseEntity findByLike(@RequestParam(name = "name", required = false) String name, //物料名称
+                                     @RequestParam(name = "projectName", required = false) String projectName, //项目名
+                                     @RequestParam(name = "remark", required = false) String remark, //备注
+                                     @RequestParam(name = "page", defaultValue = "1") Integer page,
                                      @RequestParam(name = "rows", defaultValue = "10") Integer rows){
-        return ResponseEntity.ok(materielService.findByPage(page, rows));
+        return ResponseEntity.ok(materielService.findByLike(name, projectName, remark, page, rows));
     }
 
     @GetMapping("findById")
@@ -35,10 +39,19 @@ public class MaterielController {
         return ResponseEntity.status(HttpStatus.CREATED).body(materielService.update(materiel));
     }
 
-    /*//更新状态
+    @GetMapping("findByProjectId")
+    public ResponseEntity findByProjectId(@RequestParam(name = "projectId") Integer projectId){
+        return ResponseEntity.ok(materielService.findByProjectId(projectId));
+    }
+
+    @GetMapping("delete")
+    public ResponseEntity delete(@RequestParam(name = "id") Integer id){
+        return ResponseEntity.ok(materielService.delete(id));
+    }
+
+    //添加到已完成
     @GetMapping("updateStatus")
-    public ResponseEntity updateStatus(@RequestParam(name = "id") Integer id,
-                                       @RequestParam(name = "status") Integer status){
-        return ResponseEntity.ok(materielService.updateStatus(id, status));
-    }*/
+    public ResponseEntity updateStatus(@RequestParam(name = "projectId") Integer projectId){
+        return ResponseEntity.ok(materielService.updateStatus(projectId));
+    }
 }

@@ -10,8 +10,10 @@ import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import tk.mybatis.mapper.entity.Example;
 
-import java.util.Date;
+import java.util.List;
+
 
 @Service
 @Transactional
@@ -24,7 +26,11 @@ public class MaterielService {
     private ProjectService projectService;
 
     public JsonData save(Materiel materiel) {
-        materiel.setSumprice(materiel.getPrice() * materiel.getNumber());
+        double sumprice = materiel.getPrice() * materiel.getNumber();//计算总价
+        if (sumprice != materiel.getSumprice()){
+            return JsonData.buildError("请校验总价是否正确");
+        }
+        materiel.setDate(DateUtils.dateByString()); //设置日期
         int i = materielMapper.insertSelective(materiel);
         if (i != 1){
             return JsonData.buildError("保存失败");
@@ -33,25 +39,32 @@ public class MaterielService {
     }
 
     public Materiel findById(Integer id){
-        Materiel materiel = materielMapper.selectByPrimaryKey(id);
-        materiel.setProjectName(projectService.findNameById(materiel.getMproject()));
-        return materiel;
+        return materielMapper.selectByPrimaryKey(id);
     }
 
-    public PageResult<Materiel> findByPage(Integer page, Integer rows) {
-        PageHelper.startPage(page, rows);
-        Page<Materiel> userPage = (Page<Materiel>) materielMapper.selectAll();
-        for (Materiel materiel : userPage) {
-            materiel.setProjectName(projectService.findNameById(materiel.getMproject()));
+    //多条件搜索
+    public PageResult<Materiel> findByLike(String name,String projectName,String remark, Integer page, Integer rows) {
+        Example example = new Example(Materiel.class);
+        Example.Criteria criteria = example.createCriteria();
+        if (name != null){
+            criteria.andLike("mname", "%" + name + "%");
         }
+        if (projectName != null) {
+            Object projectId = projectService.findIdByName(projectName);
+            if (projectId == null){
+                return new PageResult<>();
+            }
+            criteria.andEqualTo("mproject", projectId);
+        }
+        if (remark != null){
+            criteria.andLike("remark", "%" + remark + "%");
+        }
+        PageHelper.startPage(page, rows);
+        Page<Materiel> userPage = (Page<Materiel>) materielMapper.selectByExample(example);
         return new PageResult<>(userPage.getTotal(), userPage.getPages(), userPage.getResult());
     }
 
     public JsonData update(Materiel materiel) {
-        /*Materiel materiel1 = findById(materiel.getId());
-        if (materiel1.getStatus() == 1){
-            return JsonData.buildError("已完成项目，不允许再次修改");
-        }*/
         materiel.setDate(DateUtils.dateByString());
         int i = materielMapper.updateByPrimaryKeySelective(materiel);
         if (i != 1){
@@ -60,16 +73,28 @@ public class MaterielService {
         return JsonData.buildSuccess("更新成功");
     }
 
-    /*public JsonData updateStatus(Integer id, Integer status) {
-        if (status == 0 || status == 1){
-            materielMapper.updateStatus(id, status , DateUtils.dateByString());
-            if (status == 0){
-                //更新为未完成以后，改变project的status
-                Materiel materiel = materielMapper.selectByPrimaryKey(id);
-                materielMapper.updateProjectStatus(materiel.getMproject());
-            }
-            return JsonData.buildSuccess("成功");
-        }
-        return JsonData.buildError("数据有问题");
-    }*/
+    //通过ProjectId查物料
+    public JsonData findByProjectId(Integer projectId) {
+        Example example = new Example(Materiel.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("mproject", projectId);
+        List<Materiel> materielList = materielMapper.selectByExample(example);
+        return JsonData.buildSuccess(materielList, "");
+    }
+
+    public JsonData delete(Integer id) {
+        materielMapper.deleteByPrimaryKey(id);
+        return JsonData.buildSuccess("删除成功");
+    }
+
+    //添加到已完成
+    public JsonData updateStatus(Integer projectId) {
+        Materiel materiel = new Materiel();
+        materiel.setStatus(1);
+        Example example = new Example(Materiel.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("mproject", projectId);
+        int i = materielMapper.updateByExampleSelective(materiel, example);
+        return JsonData.buildSuccess(i, "成功");
+    }
 }

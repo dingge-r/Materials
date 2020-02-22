@@ -7,17 +7,17 @@ import tk.mybatis.mapper.common.Mapper;
 
 public interface ProjectMapper extends Mapper<Project> {
 
-    @Select("select projectname from project where id = #{id}")
-    String findNameById(Integer id);
+    @Select("select id from project where projectname = #{projectname}")
+    Integer findIdByName(String projectname);
 
     @Select("select status from materiel where mproject = #{projectId}")
-    int findStatusByMateriel(Integer projectId);
+    int[] findStatusByMateriel(Integer projectId);
 
     @Select("select cstatus from contract where cproject = #{projectId}")
-    int findStatusByContract(Integer projectId);
+    Integer findStatusByContract(Integer projectId);
 
     @Select("select status from money where project = #{projectId}")
-    int findStatusByMoney(Integer projectId);
+    Integer findStatusByMoney(Integer projectId);
 
     @Update("update project set status = 1 where id = #{id}")
     void updateStatus(Integer id);
