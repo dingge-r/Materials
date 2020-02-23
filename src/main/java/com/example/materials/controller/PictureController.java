@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("api/picture")
@@ -14,10 +15,11 @@ public class PictureController {
     @Autowired
     private PictureService pictureService;
 
-    //通过项目id查询图片
-    @GetMapping("findbyId")
-    public ResponseEntity findById(@RequestParam(name = "id") Integer id){
-        return ResponseEntity.status(HttpStatus.CREATED).body(pictureService.findById(id));
+
+    //上传图片，返回图片存放路径
+    @PostMapping("uploadImage")
+    public ResponseEntity save(@RequestParam(name = "img") MultipartFile img) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(pictureService.uploadImage(img));
     }
 
     //更新
