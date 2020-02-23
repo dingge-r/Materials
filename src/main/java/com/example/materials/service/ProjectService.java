@@ -81,7 +81,7 @@ public class ProjectService {
         Page<Project> projectPage1 = (Page<Project>) projectMapper.selectByExample(example);
         return new PageResult<>(projectPage1.getTotal(), projectPage1.getPages(), projectPage1.getResult());
     }
-    
+
     //所有未完成项目
     public JsonData findUndone() {
         Example example = new Example(Project.class);

@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 8081
 
 database:
   url: jdbc:mysql://39.106.188.22:3306/materials?useUnicode=true&characterEncoding=utf-8&useSSL=false
@@ -14,7 +14,6 @@ spring:
     type: com.alibaba.druid.pool.DruidDataSource
   servlet:
     multipart:
-      max-file-size: 10MB
       enabled: true
 #mybatis
 mybatis:
