@@ -34,4 +34,9 @@ public class WordController {
     public ResponseEntity delete(@RequestParam(name = "id") Integer id){
         return ResponseEntity.ok(wordService.delete(id));
     }
+
+    @GetMapping("toPdfFile")
+    public ResponseEntity toPdfFile(@RequestParam(name = "fileUrl") String fileUrl) {
+        return ResponseEntity.ok(wordService.toPdfFile(fileUrl));
+    }
 }

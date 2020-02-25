@@ -3,6 +3,7 @@ package com.example.materials.service;
 import com.example.materials.domain.Word;
 import com.example.materials.mapper.WordMapper;
 import com.example.materials.utils.JsonData;
+import org.jodconverter.DocumentConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,6 +19,9 @@ import java.util.UUID;
 public class WordService {
     @Autowired
     private WordMapper wordMapper;
+
+    @Autowired
+    private DocumentConverter converter;
 
     //上传文件
     public JsonData uploadWord(MultipartFile file) {
@@ -64,5 +68,28 @@ public class WordService {
     public JsonData delete(Integer id) {
         wordMapper.deleteByPrimaryKey(id);
         return JsonData.buildSuccess("删除成功");
+    }
+
+    public JsonData toPdfFile(String fileUrl) {
+        try {
+            fileUrl = fileUrl.substring(fileUrl.indexOf("/materials"));
+            File file = new File(fileUrl);
+            String fileName = file.getName();//daa656e2-a382-43a7-a257-9ce0be810ffb.doc
+            String suffixName = fileName.substring(fileName.lastIndexOf(".")); //.doc
+            if (".pdf".equals(suffixName)){
+                return JsonData.buildSuccess(fileUrl, "成功");
+            }
+            String name = fileName.substring(0, fileName.lastIndexOf(".")); //daa656e2-a382-43a7-a257-9ce0be810ffb
+            File dir = new File("/materials/pdf");
+            if (!dir.exists()) {
+                dir.mkdirs();
+            }
+            //文件转化
+            converter.convert(file).to(new File("/materials/pdf/"+ name +".pdf")).execute();
+            String pdfUrl = "http://39.106.188.22:8081/materials/pdf/"+ name +".pdf";
+            return JsonData.buildSuccess(pdfUrl, "成功");
+        }catch (Exception e){
+            return JsonData.buildError(e,"转换失败");
+        }
     }
 }
