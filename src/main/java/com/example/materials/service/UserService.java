@@ -24,7 +24,7 @@ public class UserService {
     private UserMapper userMapper;
 
     //登录
-    public JsonData login(User user) {
+    public JsonData  login(User user) {
         Subject subject = SecurityUtils.getSubject();
         subject.isAuthenticated();
         SimpleHash simpleHash = new SimpleHash("MD5", user.getPassword(), user.getUsername(), 12);
