@@ -21,10 +21,36 @@ public class ShiroConfig {
 		filerMap.put("/api/user/login", "anon");
 
 		//需要权限的接口
-		filerMap.put("/api/user/save", "perms[user:admin]"); // 添加用户的权限
+		//领导
+		filerMap.put("/api/user/save", "perms[user:admin]"); // 添加用户
 		filerMap.put("/api/user/delete", "perms[user:admin]"); //删除用户
+		filerMap.put("/api/project/save", "perms[user:admin]"); //新建项目
+		filerMap.put("/api/project/update", "perms[user:admin]"); //更新项目内容
 
-		filerMap.put("api/token/role/*", "perms[role:perm]");
+		//上传文档、图片
+		filerMap.put("/api/word/uploadWord", "perms[user:upload]"); //word相关权限
+		filerMap.put("/api/word/save", "perms[user:upload]"); //word相关权限
+		filerMap.put("/api/word/update", "perms[user:upload]"); //word相关权限
+		filerMap.put("/api/word/delete", "perms[user:upload]"); //word相关权限
+		filerMap.put("/api/picture/uploadImage", "perms[user:upload]"); //上传图片相关权限
+		filerMap.put("/api/picture/save", "perms[user:upload]"); //上传图片相关权限
+		filerMap.put("/api/picture/update", "perms[user:upload]"); //上传图片相关权限
+		filerMap.put("/api/picture/delete", "perms[user:upload]"); //上传图片相关权限
+		//合同
+		filerMap.put("/api/contract/save", "perms[user:contract]"); //合同
+		filerMap.put("/api/contract/update", "perms[user:contract]"); //合同
+		//金额、支付
+		filerMap.put("/api/money/save", "perms[user:money]"); //金额
+		filerMap.put("/api/money/update", "perms[user:money]"); //金额
+		filerMap.put("/api/detail/save", "perms[user:money]"); //支付详情
+		filerMap.put("/api/detail/update", "perms[user:money]"); //支付详情
+		//物料
+		filerMap.put("/api/materiel/save", "perms[user:materiel]"); //物料
+		filerMap.put("/api/materiel/update", "perms[user:materiel]"); //物料
+		filerMap.put("/api/materiel/delete", "perms[user:materiel]"); //物料
+		filerMap.put("/api/materiel/updateStatus", "perms[user:materiel]"); //物料
+		//普通身份
+		//filerMap.put("", "perms[user:common]");
 
 		//返回404，请先登录
 		shiroFilterFactoryBean.setLoginUrl("/PleaseLoginFirst");
