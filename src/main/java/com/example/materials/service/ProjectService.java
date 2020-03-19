@@ -99,7 +99,6 @@ public class ProjectService {
                     project.setStatus(1);
                     projectMapper.updateStatus(project.getId());
                 }
-
             }
         }
         example.setOrderByClause("create_time desc");

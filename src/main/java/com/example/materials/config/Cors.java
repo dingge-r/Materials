@@ -13,8 +13,10 @@ public class Cors extends WebMvcConfigurerAdapter {
 	public void addCorsMappings(CorsRegistry registry) {
 		registry.addMapping("/**")
 				.allowedOrigins("*")
+                .allowedHeaders("*")
 				.allowedMethods("GET", "POST", "PUT", "OPTIONS", "DELETE", "PATCH")
 				.allowCredentials(true).maxAge(3600);
+
 	}
 
 }
