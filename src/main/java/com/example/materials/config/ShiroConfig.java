@@ -24,6 +24,7 @@ public class ShiroConfig {
 		//领导
 		filerMap.put("/api/user/save", "perms[user:admin]"); // 添加用户
 		filerMap.put("/api/user/delete", "perms[user:admin]"); //删除用户
+		filerMap.put("/api/user/findByPage", "perms[user:admin]"); //用户列表
 		filerMap.put("/api/project/save", "perms[user:admin]"); //新建项目
 		filerMap.put("/api/project/update", "perms[user:admin]"); //更新项目内容
 
