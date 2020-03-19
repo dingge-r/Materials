@@ -38,4 +38,9 @@ public class UserController {
         return ResponseEntity.ok(userService.findByPage(page, rows));
     }
 
+    @PutMapping("update")
+    public ResponseEntity update(@RequestBody User user){
+        return ResponseEntity.status(HttpStatus.CREATED).body(userService.update(user));
+    }
+
 }

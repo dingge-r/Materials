@@ -82,4 +82,12 @@ public class UserService {
         Page<User> userPage = (Page<User>) userMapper.selectAll();
         return new PageResult<>(userPage.getTotal(), userPage.getPages(), userPage.getResult());
     }
+
+    public JsonData update(User user) {
+        int i = userMapper.updateByPrimaryKeySelective(user);
+        if (i != 1){
+            return JsonData.buildError("更新失败");
+        }
+        return JsonData.buildSuccess("更新成功");
+    }
 }
