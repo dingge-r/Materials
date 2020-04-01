@@ -27,7 +27,8 @@ public class MaterielService {
         if (sumprice != materiel.getSumprice()){
             return JsonData.buildError("请校验总价是否正确");
         }
-        materiel.setDate(DateUtils.dateByString()); //设置日期
+        materiel.setDate(DateUtils.dateByString()); //设置当前时间，并进行格式化
+
         int i = materielMapper.insertSelective(materiel);
         if (i != 1){
             return JsonData.buildError("保存失败");
