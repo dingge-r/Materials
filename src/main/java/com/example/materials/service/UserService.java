@@ -73,6 +73,13 @@ public class UserService {
     }
 
     public JsonData delete(Integer id) {
+        User user = userMapper.selectByPrimaryKey(id);
+        if (user == null) {
+            return JsonData.buildError("没有此id的账户");
+        }
+        else if ("admin".equals(user.getUsername()) || id == 1){
+            return JsonData.buildError("管理员账户不允许删除");
+        }
         userMapper.deleteByPrimaryKey(id);
         return JsonData.buildSuccess("删除用户成功");
     }
@@ -84,6 +91,21 @@ public class UserService {
     }
 
     public JsonData update(User user) {
+        Example example = new Example(User.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("username",user.getUsername());
+        criteria.andNotEqualTo("id", user.getId());
+        User u = userMapper.selectOneByExample(example);
+
+        if (u != null){
+            return JsonData.buildError("用户名重复");
+        }
+        if (user.getPassword() != null){
+            //密码加密
+            SimpleHash simpleHash = new SimpleHash("MD5", user.getPassword(), user.getUsername(), 12);
+            user.setPassword(simpleHash.toString());
+        }
+
         int i = userMapper.updateByPrimaryKeySelective(user);
         if (i != 1){
             return JsonData.buildError("更新失败");
