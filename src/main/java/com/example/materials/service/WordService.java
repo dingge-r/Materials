@@ -86,7 +86,7 @@ public class WordService {
             }
             //文件转化
             converter.convert(file).to(new File("/materials/pdf/"+ name +".pdf")).execute();
-            String pdfUrl = "http://39.106.188.22:8081/materials/pdf/"+ name +".pdf";
+            String pdfUrl = "http://39.107.65.22:8888/materials/pdf/"+ name +".pdf";
             return JsonData.buildSuccess(pdfUrl, "成功");
         }catch (Exception e){
             return JsonData.buildError(e,"转换失败");

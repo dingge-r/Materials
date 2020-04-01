@@ -38,7 +38,7 @@ public class PictureService {
             }
             img.transferTo(new File(dir, imgName));
 
-            String url = "http://39.106.188.22:8081/materials/image/" + imgName;
+            String url = "http://39.107.65.22:8888/materials/image/" + imgName;
             result.put("url", url);
             return JsonData.buildSuccess(result, "上传成功");
         } catch (Exception e) {
