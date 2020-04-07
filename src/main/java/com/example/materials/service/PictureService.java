@@ -32,7 +32,7 @@ public class PictureService {
             UUID uuid = UUID.randomUUID();  //随机不重复的字符串
             imgName = uuid + suffixName;
 
-            File dir = new File("/materials/image");
+            File dir = new File("C:\\materials\\image");
             if (!dir.exists()) {
                 dir.mkdirs();
             }

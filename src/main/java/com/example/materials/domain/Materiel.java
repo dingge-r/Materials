@@ -27,5 +27,4 @@ public class Materiel {
     private String date;
     private Integer status;     //当前项目状态 0未完成，1已完成
 
-
 }

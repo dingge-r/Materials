@@ -35,13 +35,13 @@ public class WordService {
             UUID uuid = UUID.randomUUID();
             fileName = uuid + suffixName;
 
-            File dir = new File("/materials/word");
+            File dir = new File("C:\\materials\\word");
             if (!dir.exists()) {
                 dir.mkdirs();
             }
             file.transferTo(new File(dir, fileName));
 
-            String url = "http://39.106.188.22:8081/materials/word/" + fileName;
+            String url = "http://39.107.65.22:8888/materials/word/" + fileName;
             result.put("url", url);
             return JsonData.buildSuccess(result, "上传成功");
         } catch (Exception e) {
@@ -80,12 +80,12 @@ public class WordService {
                 return JsonData.buildSuccess(fileUrl, "成功");
             }
             String name = fileName.substring(0, fileName.lastIndexOf(".")); //daa656e2-a382-43a7-a257-9ce0be810ffb
-            File dir = new File("/materials/pdf");
+            File dir = new File("C:\\materials\\pdf");
             if (!dir.exists()) {
                 dir.mkdirs();
             }
             //文件转化
-            converter.convert(file).to(new File("/materials/pdf/"+ name +".pdf")).execute();
+            converter.convert(file).to(new File("C:\\materials\\pdf\\"+ name +".pdf")).execute();
             String pdfUrl = "http://39.107.65.22:8888/materials/pdf/"+ name +".pdf";
             return JsonData.buildSuccess(pdfUrl, "成功");
         }catch (Exception e){
